@@ -6,7 +6,7 @@
 <body>
   <h1>CRM SDK TEST</h1>
   <input type="text" id="phoneNumber" placeholder="Enter phone number" />
-  <button onclick="dial()">Dial</button>
+  <button onclick="dial()" id="dialButton">Dial</button>
   <button onclick="acceptCall()" id="acceptButton" style="display:none;">Accept</button>
   <button onclick="muteCall()" id="muteButton" style="display:none;">Mute</button>
   <button onclick="hangup()" id="hangupButton" disabled>Hangup</button>
@@ -27,22 +27,26 @@
         const acceptButton = document.getElementById("acceptButton");
         const hangupButton = document.getElementById("hangupButton");
         const muteButton = document.getElementById("muteButton");
+        const dialButton = document.getElementById("dialButton");
 
         switch (eventType) {
           case "incoming":
             statusMessage.innerText = "Incoming call...";
             acceptButton.style.display = "inline-block";
             muteButton.style.display = "inline-block";
+            dialButton.style.display = "none";
             break;
           case "connected":
             statusMessage.innerText = "Call connected";
             acceptButton.style.display = "none";
+            dialButton.style.display = "none";
             hangupButton.disabled = false;
             break;
           case "callEnded":
             statusMessage.innerText = "Call ended";
             acceptButton.style.display = "none";
             muteButton.style.display = "none";
+            dialButton.style.display = "inline-block";
             hangupButton.disabled = true;
             break;
           default:
